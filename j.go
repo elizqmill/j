@@ -22,6 +22,7 @@ type Config struct {
 	Host     string // e.g. "meet.cryptopro.ru"
 	Room     string // e.g. "myroom"
 	Nick     string // display name
+	Password string // optional MUC room password (XEP-0045)
 	Debug    bool   // verbose XMPP logging
 	Insecure bool   // skip TLS certificate verification
 	// HTTPClient is used for config discovery, XMPP/BOSH, and Colibri WebSockets.
@@ -136,6 +137,7 @@ type Session struct {
 	sctpDC     *webrtc.DataChannel
 	sctpReady  chan struct{}
 	room       string
+	password   string
 	jingleSID  string
 	initiator  string
 	httpClient *http.Client
@@ -424,7 +426,7 @@ func (s *Session) Rejoin(ctx context.Context, nick string) error {
 		nick = s.Conn.Nick()
 	}
 	log.Printf("j: rejoin joining room %s as %s", s.room, nick)
-	return s.Conn.JoinMUC(ctx, s.room, nick)
+	return s.Conn.JoinMUC(ctx, s.room, nick, s.password)
 }
 
 // LowLevel returns the underlying XMPP connection so callers can issue raw XMPP/Jingle stanzas.
@@ -524,7 +526,7 @@ func JoinMUC(ctx context.Context, cfg Config) (*Session, error) {
 		return nil, fmt.Errorf("discover services: %w", err)
 	}
 
-	if err := conn.JoinMUC(ctx, cfg.Room, cfg.Nick); err != nil {
+	if err := conn.JoinMUC(ctx, cfg.Room, cfg.Nick, cfg.Password); err != nil {
 		_ = conn.Close()
 		return nil, fmt.Errorf("join muc: %w", err)
 	}
@@ -536,6 +538,7 @@ func JoinMUC(ctx context.Context, cfg Config) (*Session, error) {
 		ServerAuth: serverAuth,
 		Conn:       conn,
 		room:       cfg.Room,
+		password:   cfg.Password,
 		httpClient: httpClient,
 	}, nil
 }
@@ -565,7 +568,7 @@ func Join(ctx context.Context, cfg Config) (*Session, error) {
 	}
 	serverAuth := convertFocusInfo(conn.FocusInfo())
 
-	if err := conn.JoinMUC(ctx, cfg.Room, cfg.Nick); err != nil {
+	if err := conn.JoinMUC(ctx, cfg.Room, cfg.Nick, cfg.Password); err != nil {
 		_ = conn.Close()
 		return nil, fmt.Errorf("join muc: %w", err)
 	}
@@ -591,6 +594,7 @@ func Join(ctx context.Context, cfg Config) (*Session, error) {
 		ServerAuth:  serverAuth,
 		Conn:        conn,
 		room:        cfg.Room,
+		password:    cfg.Password,
 		jingleSID:   parsed.SID,
 		initiator:   parsed.Initiator,
 		httpClient:  httpClient,
