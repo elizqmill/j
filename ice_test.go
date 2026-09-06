@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/pion/webrtc/v4"
-	"github.com/zarazaex69/j/internal/xmpp"
+	"github.com/elizqmill/j/internal/xmpp"
 )
 
 // TestConvertICEURLFormation locks down the URL rendering of single XEP-0215

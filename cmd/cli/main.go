@@ -13,9 +13,9 @@ import (
 
 	"github.com/pion/webrtc/v4"
 	"github.com/pion/webrtc/v4/pkg/media"
-	j "github.com/zarazaex69/j"
-	"github.com/zarazaex69/j/internal/colibri"
-	"github.com/zarazaex69/j/internal/peer"
+	j "github.com/elizqmill/j"
+	"github.com/elizqmill/j/internal/colibri"
+	"github.com/elizqmill/j/internal/peer"
 )
 
 func main() {

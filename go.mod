@@ -1,4 +1,4 @@
-module github.com/zarazaex69/j
+module github.com/elizqmill/j
 
 go 1.24.0
 

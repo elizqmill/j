@@ -12,10 +12,10 @@ import (
 	"time"
 
 	"github.com/pion/webrtc/v4"
-	"github.com/zarazaex69/j/internal/colibri"
-	"github.com/zarazaex69/j/internal/jingle"
-	"github.com/zarazaex69/j/internal/peer"
-	"github.com/zarazaex69/j/internal/xmpp"
+	"github.com/elizqmill/j/internal/colibri"
+	"github.com/elizqmill/j/internal/jingle"
+	"github.com/elizqmill/j/internal/peer"
+	"github.com/elizqmill/j/internal/xmpp"
 )
 
 type Config struct {

@@ -10,8 +10,8 @@ import (
 	"time"
 
 	"github.com/pion/webrtc/v4"
-	"github.com/zarazaex69/j/internal/jingle"
-	"github.com/zarazaex69/j/internal/xmpp"
+	"github.com/elizqmill/j/internal/jingle"
+	"github.com/elizqmill/j/internal/xmpp"
 )
 
 const sourceAddAckTimeout = 5 * time.Second

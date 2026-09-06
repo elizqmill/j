@@ -12,7 +12,7 @@ import (
 
 	"github.com/pion/webrtc/v4"
 	"github.com/pion/webrtc/v4/pkg/media"
-	j "github.com/zarazaex69/j"
+	j "github.com/elizqmill/j"
 )
 
 // E2E tests against a real Jitsi server.
